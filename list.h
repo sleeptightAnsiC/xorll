@@ -1,3 +1,31 @@
+/*
+ * API:
+ *
+ * By design, API-user has no idea what's going on with the List itself.
+ * Accessing Nodes directly is impossible.
+ * User only owns the handle to the list and can perform few operations based on it.
+ * Item stored inside of Node is generic and its value can be accessed by casting and dereferencing it.
+ *
+ * All functions that push/get/pop items on front/back are FAST
+ *      because pointers to front/back are stored inside of ListHandle.
+ * All functions that push/get/pop items at index are SLOW as
+ *      they must traverse through the list each time when used
+ *      (using them inside of index-based loop is not too smart)
+ *
+ * You're expected to initialize the item's memory on your own after pushing it!
+ *      Node will be allocated automatically but item must be initiallized.
+ *      That's why every "push" function returns Item*
+ * If an item contains pointer which owns any memory,
+ *      you have to free said memory on your own before popping it.
+ *      (It might be nice to introduce "destructor" in the future)
+ *
+ * There is no good way to reference the Node and to quickly perform anything
+ *      based on said reference, like pushing/poping before/after the referenced Node.
+ *      You can only reference the item itself by storing its adress
+ *      (This is possible to fix by introducing NodeHandle/NodeView but
+ *          would require a bit of refactoring and rethinking about whole API)
+ */
+
 
 /* Creating/Destroying List
  * LIST_NEW creates empty List and returns handle that we can use to manipulate said List.

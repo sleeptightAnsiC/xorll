@@ -1,13 +1,13 @@
 
 #include "list.h"
-#include <stdio.h>
+#include <stdio.h> /* NULL prinf */
 
 
 int print_my_item(Item* my_item, void* inout_data)
 {
+	(void)inout_data;
     printf("%c", *(char*)my_item);
     return 0;
-    (void)inout_data;
 }
 
 
